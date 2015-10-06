@@ -749,6 +749,7 @@
 
       By backward induction, the partial equilibrium solution to the household's problem is to choose savings $\{b_{s+1,t+1}\}_{s=1}^S$ to maximize \eqref{EqSperIntBeqHHmaxprob}. The solution is a series of policy functions of the form,
       \begin{equation}\label{EqIntBeqSavPolFuncGen}
+         b_{s+1,t+s} = \psi_s\Bigl(b_{s,t},\{r_{t+v}\}_{v=0}^{S-s},\{w_{t+v}\}_{v=0}^{S-s},\{BQ_{t+v}\}_{v=0}^{S-s}\Bigr) \quad\forall t \quad\text{and}\quad 1\leq s\leq S
       \end{equation}
       that satisfy the $S$ Euler equations that come from the maximization problem.
       \begin{gather}
@@ -759,52 +760,10 @@
          \end{split} \label{EqIntBeqSavEulGen} \\
          \biggl([1+r_t]b_{S,t} + w_t n_S + \frac{BQ_t}{S} - b_{S+1,t+1}\biggr)^{-\sigma} = \chi^b\left(b_{S+1,t+1}\right)^{-\sigma} \quad\forall t \tag{\ref{EqSperIntBeqSavEulS}}
       \end{gather}
-   %    The solution for savings $b_{S,t+1}$ in the second-to-last period of life to be returned with interest in the last period of life is characterized by the nonlinear dynamic Euler equation \eqref{EqSsaveulSm1} and is a function of individual wealth $b_{S-1,t}$, the interest rate $r_t$, and the wage $w_t$ at the beginning of the second-to-last period of life, as well as the interest rate $r_{t+1}$ in the last period of life.
-   %    \begin{equation}\label{EqSpsiSm1}
-   %       b_{S,t+1} = \psi_{S-1}\left(b_{S-1,t}, r_t, w_t, r_{t+1}\right) \quad\forall t
-   %    \end{equation}
-   %    Call $\psi_{S-1}(\cdot)$ the policy function for savings $b_{S,t+1}$ in the second-to-last period of life.
 
-   %    In the third-to-last period of life $s=S-2$, the individual has two remaining lifetime decisions to make. He must choose how much to save in the third-to-last period of life $b_{S-1,t}$ and how much to save in the second-to-last period of life $b_{S,t+1}$. The latter of these two decisions will be characterized by the same function \eqref{EqSpsiSm1} that equates \eqref{EqSsaveulSm1}. However, the maximization problem is trickier for the third-to-last period savings $b_{S-1,t}$ because the individual must maximize utility over three periods.
-   %    \begin{equation}\label{EqSlifutSm2}
-   %       \begin{split}
-   %          &\max_{b_{S-1,t}} u\Bigl(w_{t-1} n_{S-2} + (1 + r_{t-1})b_{S-2,t-1} - b_{S-1,t}\Bigr) + ... \\
-   %          &\quad \beta u\Bigl(w_t n_{S-1} + (1 + r_{t})b_{S-1,t} - b_{S,t+1}\Bigr) + \beta^2 u\Bigl((1 + r_{t+1})b_{S,t+1}\Bigr)
-   %       \end{split}
-   %    \end{equation}
-   %    It initially looks like the savings $b_{S-1,t}$ only shows up in two places, which should make this derivative very easy. However, we must remember that it is also in the optimal function for the second to last period savings $b_{S,t+1}$ from \eqref{EqSpsiSm1}. The derivative of \eqref{EqSlifutSm2} with respect to $b_{S-1,t}$ and set equal to zero is, therefore,
-   %    \begin{equation}\label{EqSsaveulSm2a}
-   %       -u'(c_{S-2,t-1}) + \beta\left(1 + r_t - \frac{\partial\psi_{S-1}}{\partial b_{S-1,t}}\right)u'(c_{S-1,t}) + \beta^2(1+r_{t+1})\frac{\partial\psi_{S-1}}{\partial b_{S-1,t}}u'(c_{S,t+1}) = 0
-   %    \end{equation}
+      To summarize the individual's problem, if one knows his initial savings or wealth $b_{s,t}$ and the time path of factor prices and total bequests received over his remaining lifetime, he can solve for all of his optimal savings levels $\{b_{s+1,t+s}\}_{s=1}^{S-1}$.
 
-   %    This looks very different from the equation characterizing optimal savings in the second-to-last period \eqref{EqSlifutSm1}. However, factoring out the partial derivative terms gives the following version of the equation.
-   %    \begin{equation}\label{EqSsaveulSm2b}
-   %       -u'(c_{S-2,t-1}) + \beta(1+r_t)u'(c_{S-1,t}) = \beta\frac{\partial\psi_{S-1}}{\partial b_{S-1,t}}\Bigl[u'(c_{S-1,t}) - \beta(1+r_{t+1})u'(c_{S,t+1})\Bigr]
-   %    \end{equation}
-   %    Notice that the term on the right in brackets is zero from \eqref{EqSlifutSm1}. This is the envelope theorem or the principle of optimality. It means that the savings decisions in all future periods will be made optimally, so the derivative of that function will be zero with respect to today's savings. The third-to-last period Euler equation in \eqref{EqSsaveulSm2b} reduces to the following due to the envelope theorem.
-   %    \begin{equation}\label{EqSsaveulSm2c}
-   %       u'(c_{S-2,t-1}) = \beta(1+r_t)u'(c_{S-1,t})
-   %    \end{equation}
-   %    Using the expressions for $c_{S-2,t-1}$ and $c_{S-1,t}$ from the budget constraint \eqref{EqHHbc} and the function for second-to-last period savings $b_{S,t+1}$ from \eqref{EqSpsiSm1}, it is simple to show that the policy function for third-to-last period savings $b_{S-1,t}$ characterized by nonlinear dynamic Euler equation \eqref{EqSsaveulSm2c} is the following.
-   %    \begin{equation}\label{EqSpsiSm2}
-   %       b_{S-1,t} = \psi_{S-2}\left(b_{S-2,t-1}, r_{t-1}, w_{t-1}, r_{t}, w_{t}, r_{t+1}\right) \quad\forall t
-   %    \end{equation}
-
-   %    By backward induction, it is straightforward to show that the $S-1$ savings decisions over an individual's lifetime are characterized by $S-1$ nonlinear dynamic Euler equations of the form,
-   %    \begin{equation}\label{EqSeulGen}
-   %       \begin{split}
-   %          &u'(c_{s,t}) = \beta(1+r_{t+1})u'(c_{s+1,t+1}) \quad\forall t,\quad\text{and}\quad 1\leq s\leq S-1 \\
-   %          &\qquad\text{and}\quad c_{s,t} = w_t n_s + (1 + r_{t})b_{s,t} - b_{s+1,t+1} \quad\forall s,t \\
-   %          &\qquad\text{and}\quad b_{1,t},b_{S-1,t} = 0 \quad\forall t
-   %       \end{split}
-   %    \end{equation}
-   %    Following the pattern of \eqref{EqSpsiSm1} and \eqref{EqSpsiSm2}, the policy functions for each of the savings decisions is a function of the individual's wealth at the beginning of the period $b_{s,t}$ and the time path of wages and interest rates over the remaining periods of the individual's life.
-   %    \begin{equation}\label{EqSpsiGen}
-   %       b_{s+1,t+1} = \psi_{s}\Bigl(b_{s,t}, \{r_v\}_{u=t}^{t+S-s}, \{w_u\}_{u=t}^{t+S-s-1}\Bigr) \quad\forall t \quad\text{and}\quad 1\leq s\leq S-1
-   %    \end{equation}
-   %    To summarize the individual's problem, if one knows his initial savings or wealth $b_{s,t}$ and the time path of factor prices over his remaining lifetime, he can solve for all of his optimal savings levels $\{b_{s+1,t+s}\}_{s=1}^{S-1}$.
-
-   %    To conclude the household's problem, we must make an assumption about how the age-$s$ household can forecast the time path of interest rates and wages $\{r_u, w_u\}_{u=t}^{t+S-s}$ over his remaining lifetime. As we will show in Section \ref{SecSperSimpEqlb}, the equilibrium interest rate $r_t$ and wage $w_t$ will be functions of the state vector $\bm{\Gamma}_t$, which turns out to be the entire distribution of savings at in period $t$.
+      To conclude the household's problem, we must make an assumption about how the age-$s$ household can forecast the time path of interest rates and wages $\{r_u, w_u\}_{u=t}^{t+S-s}$ over his remaining lifetime. As we will show in Section \ref{SecSperSimpEqlb}, the equilibrium interest rate $r_t$ and wage $w_t$ will be functions of the state vector $\bm{\Gamma}_t$, which turns out to be the entire distribution of savings at in period $t$.
 
    %    Define $\bm{\Gamma}_t$ as the distribution of household savings across households at time $t$.
    %    \begin{equation}\label{EqSsavDist}
