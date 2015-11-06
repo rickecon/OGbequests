@@ -1,2 +1,0 @@
-This code and its corresponding graphs use all three instances of reported bequests in SCF for calculations.
-Uses years 1989-2013.

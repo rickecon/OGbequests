@@ -1,2 +1,0 @@
-This code and it's corresponding graphs use only the first bequest received by respondents in SCF for measurements.
-Uses years 2001-2013
