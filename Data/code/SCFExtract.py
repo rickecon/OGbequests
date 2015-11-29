@@ -53,13 +53,13 @@ filenames = ['p13i6','p10i6','p07i6','p04i6','p01i6','p98i6',
 summaryfiles = ['rscfp2013','rscfp2010','rscfp2007','rscfp2004','rscfp2001',
 'rscfp1998','rscfp1995','rscfp1992','rscfp1989']
 
-year_start = int(sys.argv[1])
-year_end = int(sys.argv[2])
-graphs = bool(sys.argv[3])
+# year_start = int(sys.argv[1])
+# year_end = int(sys.argv[2])
+# graphs = bool(sys.argv[3])
 
-# year_start = 1998
-# year_end = 2013
-# graphs = False
+year_start = 1998
+year_end = 2013
+graphs = True
 
 '''Making sure feasible inputs are given'''
 if (graphs != True) & (graphs != False):
