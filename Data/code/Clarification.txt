@@ -1,0 +1,10 @@
+This code and its corresponding graphs give the percentage of bequests distributed among different age and income groups for the desired SCF survey years.
+
+The graphs already included in this Data file are those corresponding to the years 1998-2013.
+
+---HOW TO RUN CODE---
+-navigate to where the file is located using the command prompt.
+-use the following command "python SCFExtract.py <start year> <end year> <Whether you want graphs or not (True = want graphs, False = don't want graphs)>
+- The desired start year must be 1989 or later because there are no SCF summary variables before this date.
+- Currently (2015), there is no SCF later than 2013 so you cannot enter a end year later than 2013.
+- In order for the code to run you must have the corresponding data files from the Federal Reserve's website. More information on how to gather this data in the file "HowToFindData.txt".
