@@ -1,0 +1,153 @@
+\documentclass[letterpaper,12pt]{article}
+
+\usepackage{threeparttable}
+\usepackage{geometry}
+\geometry{letterpaper,tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in}
+\usepackage[format=hang,font=normalsize,labelfont=bf]{caption}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{delarray}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{lscape}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{float,color}
+\usepackage[pdftex]{graphicx}
+\usepackage{pdfsync}
+\usepackage{verbatim}
+\usepackage{placeins}
+\usepackage{geometry}
+\usepackage{pdflscape}
+\synctex=1
+\usepackage{hyperref}
+\hypersetup{colorlinks,linkcolor=red,urlcolor=blue,citecolor=red}
+\usepackage{bm}
+
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}{Definition} % Number definitions on their own
+\newtheorem{derivation}{Derivation} % Number derivations on their own
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}{Proposition} % Number propositions on their own
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\bibliographystyle{aer}
+\newcommand\ve{\varepsilon}
+\renewcommand\theenumi{\roman{enumi}}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+
+\begin{document}
+
+\begin{titlepage}
+\title{A Multivariate Kernel Density Estimator for the Joint Distribution of Bequest Recipients
+       \thanks{
+       We are grateful to the BYU Macroeconomics and Computational Laboratory and to the Open Source Policy Center at the American Enterprise Institute for research support on this project. All Python code and documentation for the computational model is available at \href{https://github.com/rickecon/OGbequests}{https://github.com/rickecon/OGbequests}. We also thank James McDonald for some helpful suggestions.}
+       }
+\author{
+  Jason DeBacker\footnote{Middle Tennessee State University, Department of Economics and Finance, BAS N306, Murfreesboro, TN 37132, (615) 898-2528,\href{mailto:jason.debacker@mtsu.edu}{jason.debacker@mtsu.edu}.} \\[-2pt]
+  \and
+  Richard W. Evans\footnote{Brigham Young University, Department of Economics, 167 FOB, Provo, Utah 84602, (801) 422-8303, \href{mailto:revans@byu.edu}{revans@byu.edu}.} \\[-2pt]
+  \and
+  Parker Rogers\footnote{Brigham Young University, Department of Economics, 121B FOB, Provo, Utah 84602, \href{mailto:parker.rogers2@gmail.com}{parker.rogers2@gmail.com}.} \\[-2pt]
+  \and
+  Kerk L. Phillips\footnote{Brigham Young University, Department of Economics, 166 FOB, Provo, Utah 84602, (801) 422-5928, \href{mailto:kerk_phillips@byu.edu}{kerk\_phillips@byu.edu}.} \\[-2pt]}
+\date{September 2015 \\
+  \scriptsize{(version 15.12.a)}}
+\maketitle
+\vspace{-9mm}
+\begin{abstract}
+\footnotesize{We estimate a flexible joint distribution of bequest recipients in the United States by age and by lifetime income group. We use a multivariate kernel density estimator with a flexible bandwidth parameter. In addition we provide a method with accompanying code to produce the resulting discrete joint distribution over arbitrary age and lifetime income bins.
+
+\vspace{3mm}
+
+\noindent\textit{keywords:}\: multivariate kernel density estimation, bequests, inheritances, survey of consumer finances.
+
+\vspace{3mm}
+
+\noindent\textit{JEL classification:} C14, C63, D31, D91, E21}
+\end{abstract}
+\thispagestyle{empty}
+\end{titlepage}
+
+
+\begin{spacing}{1.5}
+
+\section{Introduction}\label{SecIntro}
+
+  Put introduction here with a review of the relevant literature. Key points are that we are estimating a joint distribution. Past stuff estimates unconditional distributions of each dimension separately.
+
+
+\section{Survey of Consumer Finances data}\label{SecSCFdata}
+
+  Put SCF data description here. Include graphs, references to other key descriptive work, and some references to other data sources
+
+
+\section{Estimated Joint Distribution of Bequests}\label{SecDist}
+
+  Put small introductory paragraph to the section here.
+
+
+  \subsection{Multivariate Kernel Density Estimator (MVKDE)}\label{SecDistMVKDE}
+
+    Put small description of general MVKDE here with references to more detailed treatments. Note the Python code that we use.
+
+
+  \subsection{Distribution of bequests}\label{SecDistEst}
+
+    Describe and show our estimated distribution. Go through the robustness of the code and the smoothing parameter to adapt to the needs of many models.
+
+
+\section{Conclusion}\label{SecConclusion}
+
+  Put conclusion here. Discuss how this will improve estimates of the effects of inheritance taxation as well as models that focus on the distribution of wealth. Discuss how it would be nice to find data that links who gives bequests and who receives bequests by both age and income.
+
+\clearpage
+
+
+\end{spacing}
+
+
+\newpage
+\bibliography{KDbequests}
+
+
+% \newpage
+% \renewcommand{\theequation}{A.\arabic{section}.\arabic{equation}}
+%                                                  % redefine the command that creates the section number
+% \renewcommand{\thesection}{A-\arabic{section}}   % redefine the command that creates the equation number
+% \setcounter{equation}{0}                         % reset counter
+% \setcounter{section}{0}                          % reset section number
+% \section*{APPENDIX}                              % use *-form to suppress numbering
+
+% \section{First Appendix Section Title}\label{AppTitle1}
+
+%   Put first Appendix section content here.
+
+
+% \newpage
+% \section{Second Appendix Section Title}\label{AppTitle2}
+
+%   \setcounter{equation}{0}
+
+%   Put second Appendix section content here.
+
+
+\end{document}
