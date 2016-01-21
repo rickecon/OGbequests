@@ -121,12 +121,9 @@
 
 \section{Introduction}\label{SecIntro}
 
-The conventional wisdom among Americans is that inheritances contribute to the overall wealth inequality in the United States \citet{Wolff:2015}. In order to more accurately model and predict how inheritances actually affect wealth inequality, we must better understand who is receiving these wealth transfers. Recent literature suggests that there is an inverted U-shaped relationship between age and inheritance reception rates. More specifically, the rates of inheritance reception among age groups were, 16.2\% for the youngest age group, 26.9\% for ages 55-64, and 8.3\% for ages 75+. Moreover, there is strong positive correlation between income level, and the percentage of households receiving wealth transfers \citet{Wolff:2015}.
+The current conventional wisdom among Americans is that inheritances propogate wealth inequality in the United States \citet{Wolff:2015}. In order to accurately model and predict how inheritances affect wealth inequality, we must better understand which individuals are eceiving these wealth transfers. Recent literature suggests that the relationship between age and inheritance reception rates is of the form of an inverted U-shape. More specifically, the rates of inheritance reception among age groups were, 16.2\% for the youngest age group, 26.9\% for ages 55-64, and 8.3\% for ages 75+. Moreover, there is strong positive correlation between income level, and the percentage of households receiving wealth transfers \citet{Wolff:2015}.
 
-  The purpose of this paper is to estimate a function that describes who are the recipients of inheritances among different age and income groups. This function can later be incorporated into dynamic macroeconomic models to simulate the effects of inheritances on wealth inequality in the United States. We will use a Multivariate Kernel Density Estimator (MVKDE) to fit a function to the data
-
-Through a MVKDE, we provide a more detailed way of modeling the dynamics of inheritances in 
-macroeconomic models. Currently, many dynamic macroeconomic models incorporate how
+Currently, many dynamic macroeconomic models incorporate how
 inheritances are distributed using two methods. Each method represents an extreme assumption 
 that is almost assuredly not true.
 
@@ -142,24 +139,23 @@ The second method of inheritance distribution splits the inheritances from all i
 equally among all income groups. This method assumes that all income groups receive equal 
 inheritances, which does not accurately portray inheritance behavior according to macroeconomic data.
 
-Our model will provide a distribution of inheritances among different age and 
-income groups that will reflect the behavior of Americans by using data extracted from the Survey of Consumer Fincances.
+  The purpose of this paper is to estimate a function that describes the proportions of inheritances received among different age and income groups. This function can later be incorporated into dynamic macroeconomic models to simulate the effects of inheritances on wealth inequality in the United States. We will use a Multivariate Kernel Density Estimator (MVKDE) to fit a function to our sample, and we will provide flexibility in our estimator by allowing a desired number of income and age groups. Our sample reflects the behavior of Americans by using data extracted from the Survey of Consumer Fincances.
 
 
 \section{Survey of Consumer Finances data}\label{SecSCFdata}
 
 
-The data we used was pulled from the Survey of Consumer Finances located on The Federal Reserve’s website. The Survey of Consumer Finances is a triennial survey conducted by The Federal Reserve that began in 1983. Each survey data set contains around 5,400 variables with over 30,000 respondents. Summary variables are included that are adjusted for inflation. We used the following variables in the SCF to generate our allproportionstogether, networth, age and agesquared \citet{FED}.
+The data we used was pulled from the Survey of Consumer Finances located on The Federal Reserve’s website. The Survey of Consumer Finances is a triennial survey conducted by The Federal Reserve that began in 1983. Each survey data set contains around 5,400 variables with over 30,000 respondents. Summary variables are included that are adjusted for inflation.\citet{FED}.
 
 Another possible data source for our purpose is The Panel Survey of Income Dynamics (PSID). The PSID is a cross-sectional survey conducted by The University of Michigan that began in 1968 and follows 18,000 individuals. You can find data on employment, income, wealth, expenditures, health, marriage, childbearing, child development, philanthropy, education, and numerous other topics. \citet{UMich}
 
-Here are the variables that we used in The Survey of Consumer Finances in determining our proportion matrix,
+Here are the variables that we used from The Survey of Consumer Finances when determining our proportion matrix,
 
 X5804 - What the approximate value of the inheritances were at the time the respondent received them. 
 
-X5809 - The second reported instance of inheritance reception.
+X5809 - The second reported value of inheritance reception.
 
-X5814 - The third reported instance of inheritances reception.
+X5814 - The third reported value of inheritances reception.
 
 X5805 - The year that they received the first instance of inheritances (corresponding to X5804).
 
@@ -174,11 +170,11 @@ wgt - An SCF summary variable that contains the weights provided by the Federal 
 networth - An SCF summary variable that contains the self-perceived net worth of the respondent at the time of the survey. 
 
 
-Since the SCF is a triennial survey, we wanted to prevent any overlap of bequest reception between the survey years. In order to more to do this, we used the SCF variables \quotes{X5805}, \quotes{X5810}, \quotes{X5815} as describled above. These variable give the time that each instance of bequests were received and allow us to make sure that we include only the bequests received in the current and previous two years of the survey year. For example, the \quotes{X5804} instance of bequests was received on the year \quotes{X5805} , and if 
+Since the SCF is a triennial survey, we wanted to prevent any overlap of bequest reception between survey years. In order to do this, we used the SCF variables \quotes{X5805}, \quotes{X5810}, \quotes{X5815} as describled above. These variables give the time that each instance of bequest was received, and allow us to make sure that we include only the bequests received in the current, and previous two years of the survey year. For example, the \quotes{X5804} instance of bequests was received on the year \quotes{X5805} , and if 
 \[\text{\quotes{X5805}} - \text{(current~survey~year)} <3\]
  then we would include that particular instance of bequests.
 
- To find the amount of bequests received conditional upon both age and ability types (networth), we seperated the bequests reported by respondents within three years of the survey by seperating the bequests received by certain ages and certain ability types into seperate bins. After, we divided the amount in each age-income bin by the total amount of bequests reported within three years of the survey for all respondents. This resulted in a proportion matrix, telling us what proportion of bequests each age-income category received. Upon examining the following resulting graph of proportions over the years 2001-2013, we proceeded to apply a different variable provided by the SCF called \quotes{weights}.
+ To gather the amount of bequests received, conditional upon both age and ability types (networth), we seperated the bequests reported by respondents within three years of the survey, by seperating the bequests received by certain age and ability types into seperate bins. After, we divided the amount in each age-income bin by the total amount of bequests reported within the three year interval of the survey for all respondents. This resulted in a proportion matrix, which tells us what proportion of bequests each age-income category received. Upon examining the following resulting graph of proportions over the years 2001-2013, we proceeded to apply a different variable provided by the SCF called \quotes{weights}.
 
 \begin{figure}[htbp]\centering \captionsetup{width=5.5in}
     \caption{\label{Weightfig}\textbf{Distribution of Inheritances Before Weights Applied}}
@@ -243,7 +239,7 @@ Notice the peak of inheritance reception at the age group 55-65 years and abilit
 
 \section{Estimated Joint Distribution of Bequests}\label{SecDist}
 
-  After gathering the data on the proportion of inheritances, we needed to fit a functional form to our data set in order to have a robust way of altering both age groups and income groups according to different user inputs. For example, if the user wanted only four ability-type cohorts and twenty age cohorts, then we need a way to create new proportion bins according to these specified conditions. If we were to use only our sparse non-linear data set, it would be difficult to compose the desired proportions for each age-ability category. However, a functional form allows us to impose any conditions on the bequest distribution that the user desires. This is why we chose to fit a Multivariate Kernel Density Estimator to our data set. 
+  After gathering the data on the proportion of inheritances, we needed to fit a functional form to our data set in order to have a smooth representation of our sample and a robust way of altering both age groups and income groups according to different user inputs. For example, if the user wanted only four ability-type cohorts and twenty age cohorts, then we need a way to create new proportion bins according to these specified conditions. If we were to use only our sparse non-linear data set, it would be difficult to compose the desired proportions for each age-ability category. However, a functional form allows us to impose any conditions on the bequest distribution that the user desires. This is why we chose to fit a Multivariate Kernel Density Estimator to our data set. 
 
 
   \subsection{Multivariate Kernel Density Estimator (MVKDE)}\label{SecDistMVKDE}
@@ -394,11 +390,11 @@ newproportion =  MVKDE(80,7,'fileout.txt', True)
     \end{lstlisting}
 
 
-We used the kernel function from the scipy module in our estimation. This kernel function works much like a histogram, therefore we changed the nature of our data from a matrix of proportions to vectors filled with the frequencies that different age and ability type groups occured. This transformation occurs on lines 80-103. 
+We used the kernel function from the imported scipy module for our estimation. This kernel function works much like a histogram, therefore we changed the nature of our data from a matrix of proportions to vectors filled with the frequencies that different age and ability type groups occured. This transformation occurs on lines 80-103. 
 
-Using the multinomial function from numpy, we loaded the function with our proportion vectors for age and ability type. We obtained these vectors by summing up our proportion matrix over both the age and then the ability type axes. This resulted in two vectors that summed to one, which provide the proportions that each age group and ability type group received respectively. The multinomial function then uses those proportions as probabilites and takes random draws according to those given proportions. We specified the function to take 70,000 random draws with the given probabilites that correspond to the age and ability proportions. For our age probability vector, this creates a new vector where each index corresponds to an age group in acsending order (18-95), where each index contains the number of times that a random draw was drawn at that particular age. For our ability probability vector, multinomial creates a similar vector in ascending order (1-7), with the number of draws that fell into into each ability type group/index.
+Using the multinomial function from numpy, we loaded the function with our proportion vectors for age and ability type. We obtained these vectors by summing up our proportion matrix over both the age and then the ability type axes. This resulted in two vectors that summed to one, which provide the proportions that each age group and ability type group received. The multinomial function then uses those proportions as probabilites and takes random draws according to those given proportions. We specified the function to take 70,000 random draws with the given probabilites that correspond to the age and ability proportions. For our age probability vector, this creates a new vector where each index corresponds to an age group in acsending order (18-95), where each index contains the number of times that a random draw resulted in that particular age. For our ability probability vector, multinomial creates a similar vector in ascending order (1-7), with the number of draws that fell into into each ability type group/index.
 
-After creating these vectors we created two new vectors that recreate the data set, but instead of proportions, we have age numbers and ability type numbers. The frequency that each age and ability type number occurs is determined by how many times the random draw from our multinomial function landed in each age and ability type index respectively. For example, if our \quotes{age\_probs} vector contains 1,876 at index 0, then this means that age 18 was drawn 1,876 times. This means that we would put 1,876 instances of \quotes{18} in our new vector called \quotes{age\_frequency}. This is done similarly with our \quotes{income\_probs} and \quotes{income\_frequency} vectors.
+After creating these vectors we created two new vectors that transfomr the data set from proportions to age numbers and ability type numbers. The frequency that each age and ability type number occurs is determined by how many times the random draw from our multinomial function resulted in each age and ability type respectively. For example, if our \quotes{age\_probs} vector contains 1,876 at index 0, then this means that age 18 was drawn 1,876 times. This means that we would put 1,876 instances of \quotes{18} in our new vector called \quotes{age\_frequency}. This is done similarly with our \quotes{income\_probs} and \quotes{income\_frequency} vectors.
 
 These new vectors now correspond to the required data format for scipy's kernel function. We then create the appropriate mesh grid to be entered into the \quotes{density} estimator function. Finally we scale the estimate to sum to one, and graph the resulting estimator.
 
