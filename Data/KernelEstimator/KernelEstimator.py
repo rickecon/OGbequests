@@ -7,7 +7,7 @@ from scipy.stats import kde
 
 def MVKDE(s, e, filename, plot = False):
 	'''
-    Generates a Multivariate Kernel Density Estimator and returns matrix of
+    Generates a Multivariate Kernel Density Estimator and returns a matrix
     representing a probability distribution according to given age categories,
     and ability type categories.
 
@@ -28,44 +28,50 @@ def MVKDE(s, e, filename, plot = False):
     							Density Estimator from given data
 
     Objects in function:
-        proportion_matrix     = [78, 7], array containing the proportion (0 < x < 1) of the total bequests 
-    							that each age-income category receives. Derived in SCFExtract.py
+        proportion_matrix     = [78, 7], array containing the proportion (0 < x < 1) of 
+                                the total bequests that each age-income category receives. 
+                                Derived in SCFExtract.py
 
-    	age_probs             = [78,], array containing the frequency, or how many times, that random drawn 
-    							numbers fell into the 78 different age bins
+    	age_probs             = [78,], array containing the frequency, or how many times, 
+                                that random drawn numbers fell into the 78 different age bins
 
-    	income_probs          = [7,], array containing the frequency, or how many times, that random drawn 
-    							numbers fell into the 7 different ability type bins
+    	income_probs          = [7,], array containing the frequency, or how many times, 
+                                that random drawn numbers fell into the 7 different ability 
+                                type bins
 
-    	age_frequency         = [70000,], array containing repeated age values for each age number 
-    							at the frequency given by the age_probs vector 
+    	age_frequency         = [70000,], array containing repeated age values for each 
+                                age number at the frequency given by the age_probs vector 
 
-    	xmesh                 = complex number, the number of age values that will be evaluated in the Kernel
-    							Density Estimator.
+    	xmesh                 = complex number, the number of age values that will be 
+                                evaluated in the Kernel Density Estimator.
 
-    	freq_mat              = [70000, 2], array containing age_frequency and income_frequency stacked
+    	freq_mat              = [70000, 2], array containing age_frequency and 
+                                income_frequency stacked
 
-    	density               = object, class given by scipy.stats.gaussian_kde. The Multivariate Kernel
-    							Density Estimator for the given data set.
+    	density               = object, class given by scipy.stats.gaussian_kde. 
+                                The Multivariate Kernel Density Estimator for the given data set.
 
-    	age_min, age_max      = scalars, the minimum and maximum age values and minimum and maximum income values 
-    	income_min, income_max
+    	age_min, age_max      = scalars, the minimum and maximum age values and minimum 
+        income_min, income_max  and maximum income values 
+    	
 
-    	agei  				  = [s, e], array containing the age values to be evaluated in the Kernel Estimator
-    							(ranging from 18-90)
+    	agei  				  = [s, e], array containing the age values to be evaluated in 
+                                the Kernel Estimator (ranging from 18-90)
 
-    	incomei 			  = [s, e], array containing the income values to be evaluated in the Kernel Estimator
-    							(ranging from 1-7)
+    	incomei 			  = [s, e], array containing the income values to be evaluated 
+                                in the Kernel Estimator (ranging from 1-7)
 
-    	coords                = [2, s*e], array containing the raveled values of agei and incomei stacked
+    	coords                = [2, s*e], array containing the raveled values of agei 
+                                and incomei stacked
 
-    	estimator             = [s, e], array containing the new proportion values for s age groups and
-    							e ability type groups that are evaluated using the Multivariate Kernel Density
-    							Estimator
+    	estimator             = [s, e], array containing the new proportion values for 
+                                s age groups and e ability type groups that are evaluated 
+                                using the Multivariate Kernel Density Estimator
 
-    	estimator_scaled       = [s, e], array containing the new proportion values for s age groups and
-    							e ability type groups that are evaluated using the Multivariate Kernel Density
-    							Estimator, but scaled so that the sum of the array is equal to one.
+    	estimator_scaled       = [s, e], array containing the new proportion values for 
+                                s age groups and e ability type groups that are evaluated using 
+                                the Multivariate Kernel Density Estimator, but scaled so that 
+                                the sum of the array is equal to one.
 
     Returns: estimator_scaled
     '''
@@ -97,22 +103,22 @@ def MVKDE(s, e, filename, plot = False):
 		k+=1
 
 	freq_mat = np.vstack((age_frequency, income_frequency)).T
-	density = kde.gaussian_kde(freq_mat.T, bw_method=0.65)
+	density = kde.gaussian_kde(freq_mat.T, bw_method=0.3)
 	age_min, income_min = freq_mat.min(axis=0)
 	age_max, income_max = freq_mat.max(axis=0)
 	agei, incomei = np.mgrid[age_min:age_max:age_mesh, income_min:income_max:income_mesh]
 	coords = np.vstack([item.ravel() for item in [agei, incomei]])
 	estimator = density(coords).reshape(agei.shape)
-	estimator_scaled = estimator/float(np.sum(estimator)) 
+	estimator_scaled = estimator/float(np.sum(estimator))
 	if plot == True:
 		fig = plt.figure()
 		ax = fig.gca(projection='3d')
 		ax.plot_surface(agei,incomei, estimator_scaled, rstride=5)
 		ax.set_xlabel("Age")
 		ax.set_ylabel("Ability Types")
-		ax.set_zlabel("Received percentage of total bequest")
+		ax.set_zlabel("Received proportion of total bequests")
 		plt.show()
 	return estimator_scaled
 
-# newproportion =  MVKDE(80,7,'fileout.txt', True)
+newproportion =  MVKDE(80,7,'fileout.txt', True)
 # print newproportion, np.sum(newproportion), np.shape(newproportion)
