@@ -7,10 +7,7 @@
 \usepackage{amsmath}
 \usepackage{multirow}
 \usepackage{array}
-<<<<<<< HEAD
 \usepackage[utf8]{inputenc}
-=======
->>>>>>> upstream/master
 \usepackage{delarray}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -24,18 +21,13 @@
 \usepackage{placeins}
 \usepackage{geometry}
 \usepackage{pdflscape}
-<<<<<<< HEAD
 \usepackage[procnames]{listings}
-=======
->>>>>>> upstream/master
 \synctex=1
 \usepackage{hyperref}
 \hypersetup{colorlinks,linkcolor=red,urlcolor=blue,citecolor=red}
 \usepackage{bm}
-<<<<<<< HEAD
 \newcommand{\quotes}[1]{``#1''}
-=======
->>>>>>> upstream/master
+
 
 
 \theoremstyle{definition}
@@ -65,7 +57,6 @@
 \newcommand\ve{\varepsilon}
 \renewcommand\theenumi{\roman{enumi}}
 \newcommand\norm[1]{\left\lVert#1\right\rVert}
-<<<<<<< HEAD
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.0,0.0, 0.4}
@@ -92,8 +83,6 @@
  
 \lstset{style=mystyle}
 
-=======
->>>>>>> upstream/master
 
 \begin{document}
 
@@ -133,7 +122,6 @@
 
 \section{Introduction}\label{SecIntro}
 
-<<<<<<< HEAD
 The current conventional wisdom among Americans is that inheritances propagate wealth inequality in the United States \citet{Wolff:2015}. In order to accurately model and predict how inheritances affect wealth inequality, we must better understand which individuals are receiving these wealth transfers. Recent literature suggests that the relationship between age and inheritance reception rates is of the form of an inverted U-shape. More specifically, the rates of inheritance reception among age groups were, 16.2\% for the youngest age group, 26.9\% for ages 55-64, and 8.3\% for ages 75+. Moreover, there is strong positive correlation between income level, and the percentage of households receiving wealth transfers \citet{Wolff:2015}.
 
 Currently, many dynamic macroeconomic models incorporate how
@@ -153,14 +141,11 @@ equally among all income groups. This method assumes that all income groups rece
 inheritances, which does not accurately portray inheritance behavior according to macroeconomic data.
 
   The purpose of this paper is to estimate a function that describes the proportions of inheritances received among different age and income groups. This function can later be incorporated into dynamic macroeconomic models to simulate the effects of inheritances on wealth inequality in the United States. We will use a Multivariate Kernel Density Estimator (MVKDE) to fit a function to our sample, and we will provide flexibility in our estimator by allowing a desired number of income and age groups. Our sample reflects the behavior of Americans by using data extracted from the Survey of Consumer Finances.
-=======
-  Put introduction here with a review of the relevant literature. Key points are that we are estimating a joint distribution. Past stuff estimates unconditional distributions of each dimension separately.
->>>>>>> upstream/master
+
 
 
 \section{Survey of Consumer Finances data}\label{SecSCFdata}
 
-<<<<<<< HEAD
 
 The data we used was pulled from the Survey of Consumer Finances located on The Federal Reserve website. The Survey of Consumer Finances is a triennial survey conducted by The Federal Reserve that began in 1983. Each survey data set contains around 5,400 variables with over 30,000 respondents. Summary variables are included that are adjusted for inflation.\citet{FED}.
 
@@ -257,19 +242,12 @@ Notice the peak of inheritance reception at the age group 55-65 years and abilit
 \section{Estimated Joint Distribution of Bequests}\label{SecDist}
 
   After gathering the data on the proportion of inheritances, we needed to fit a functional form to our data set in order to have a smooth representation of our sample and a robust way of altering both age groups and income groups according to different user inputs. For example, if the user wanted only four ability-type cohorts and twenty age cohorts, then we need a way to create new proportion bins according to these specified conditions. If we were to use only our sparse non-linear data set, it would be difficult to compose the desired proportions for each age-ability category. However, a functional form allows us to impose any conditions on the bequest distribution that the user desires. This is why we chose to fit a Multivariate Kernel Density Estimator to our data set. 
-=======
-  Put SCF data description here. Include graphs, references to other key descriptive work, and some references to other data sources
 
 
-\section{Estimated Joint Distribution of Bequests}\label{SecDist}
-
-  Put small introductory paragraph to the section here.
->>>>>>> upstream/master
 
 
   \subsection{Multivariate Kernel Density Estimator (MVKDE)}\label{SecDistMVKDE}
 
-<<<<<<< HEAD
 
     Kernel Density Estimation is a non-parametric way to approximate a density function when the parametric form of the sampling density is unknown. This proved to be useful in our approximation of the underlying density function of our data in Figure \ref{proportions}. We used a Multivariate Kernel Density Estimator to estimate the sample density as there were no clear parametric density forms that matched our data set. We put forward both the univariate and the multivariate Kernel Density Estimators, and display our Python code used to execute this estimation.
 
@@ -428,7 +406,7 @@ These new vectors now correspond to the required data format for scipy's kernel 
 
     Our results for a Multivariate Kernel Density Estimator are illustrated in the following graph,\\
 
-    \begin{figure}[htbp]\centering \captionsetup{width=6.0in}
+  \begin{figure}[htbp]\centering \captionsetup{width=6.0in}
     \caption{\label{MVKDE}\textbf{MVKDE of Distribution of Inheritances 1998-2013}}
     \fbox{\resizebox{4.0in}{3.0in}{\includegraphics{KernelEstimator}}}
   \end{figure}
@@ -436,20 +414,12 @@ These new vectors now correspond to the required data format for scipy's kernel 
 \newpage
  Note that the peak of bequest reception still lies in the age group 55-65 years and ability type 7 like Figure \ref{proportions}. Our estimated distribution is ultimately defined by a matrix of proportions whose dimensions are determined by the user. In this particular case, we specified 78 age groups (ages 18-95) and 7 ability type groups. Any desired amount of age groups and ability type groups can be given, and the resulting matrix will match these amounts. This flexibility allows our distribution to change and alter according to the different specifications in macroeconomic models.
 
- Also, a noteworthy characteristic of the MVKDE the use of a bandwidth parameter. This parameter allows for the graph to be more or less smooth. Smoothness corresponds to higher values of the \quotes{bw\_method} in the \quotes{kde.gaussian\_kde} function, and represents a distribution that is less determined by the data. The lower the bandwidth selection, the rougher the graph is and the more jagged the distribution; however, the lower bandwidths more accurately portray the behavior of the sample set. 
-=======
-    Put small description of general MVKDE here with references to more detailed treatments. Note the Python code that we use.
+ Also, a noteworthy characteristic of the MVKDE is the use of a bandwidth parameter. This parameter allows for the graph to be more or less smooth. Smoothness corresponds to higher values of the \quotes{bw\_method} in the \quotes{kde.gaussian\_kde} function, and represents a distribution that is less determined by the data. The lower the bandwidth selection, the rougher the graph is and the more jagged the distribution; however, the lower bandwidths more accurately portray the behavior of the sample set. 
 
-
-  \subsection{Distribution of bequests}\label{SecDistEst}
-
-    Describe and show our estimated distribution. Go through the robustness of the code and the smoothing parameter to adapt to the needs of many models.
->>>>>>> upstream/master
 
 
 \section{Conclusion}\label{SecConclusion}
 
-<<<<<<< HEAD
 Our estimation of a bequest distribution allows for a data-driven allocation of inheritances among different age and ability type groups. This allows for more heterogeneity among agents within macroeconomic models, and can ultimately lead to more accurate results. Previous methods of bequest allocation in dynamic macroeconomic models are most assuredly not true. The assumption that inheritances are distributed equally among different income groups, or that they are distributed only to individuals who belong to the same income group as those giving the inheritances, is not true according to our sample. By using a more accurate distribution of inheritances we can better predict the effects that inheritance taxes have on the distribution of wealth.
 
 By modeling our distribution using a MVKDE, we are able to have flexible age and ability categories. If a macroeconomic model is defined by 3-period lived agents, then one can input the need for three distinct age categories, and the resulting estimated proportion matrix will be returned with three rows representing the three age groups. Similarly, if a model defines five ability type groups in the economy, our estimator can return a new matrix of proportions with five columns of ability types. This flexibility will allow this estimator to be used in a wide variety of macroeconomic models.
@@ -457,9 +427,6 @@ By modeling our distribution using a MVKDE, we are able to have flexible age and
 Even though we were able to find data in The Survey of Consumer Finances regarding individuals who receive bequests by both age and income, we were unable to find data that links these individuals with those who are giving bequests. It would be useful to know which individuals, by age and income categories, are giving bequests so that we can also accurately model this component of bequest distribution.
 
 
-=======
-  Put conclusion here. Discuss how this will improve estimates of the effects of inheritance taxation as well as models that focus on the distribution of wealth. Discuss how it would be nice to find data that links who gives bequests and who receives bequests by both age and income.
->>>>>>> upstream/master
 
 \clearpage
 
@@ -492,8 +459,5 @@ Even though we were able to find data in The Survey of Consumer Finances regardi
 %   Put second Appendix section content here.
 
 
-<<<<<<< HEAD
+
 \end{document}
-=======
-\end{document}
->>>>>>> upstream/master
