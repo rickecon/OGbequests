@@ -61,26 +61,26 @@
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.0,0.0, 0.4}
 \definecolor{backcolour}{rgb}{0.99,0.99,0.99}
- 
+
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
+    backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
     basicstyle=\scriptsize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=2
 }
- 
+
 \lstset{style=mystyle}
 
 
@@ -96,15 +96,13 @@
   \and
   Richard W. Evans\footnote{Brigham Young University, Department of Economics, 167 FOB, Provo, Utah 84602, (801) 422-8303, \href{mailto:revans@byu.edu}{revans@byu.edu}.} \\[-2pt]
   \and
-  Parker Rogers\footnote{Brigham Young University, Department of Economics, 121B FOB, Provo, Utah 84602, \href{mailto:parker.rogers2@gmail.com}{parker.rogers2@gmail.com}.} \\[-2pt]
-  \and
-  Kerk L. Phillips\footnote{Brigham Young University, Department of Economics, 166 FOB, Provo, Utah 84602, (801) 422-5928, \href{mailto:kerk_phillips@byu.edu}{kerk\_phillips@byu.edu}.} \\[-2pt]}
-\date{September 2015 \\
-  \scriptsize{(version 15.12.a)}}
+  Parker Rogers\footnote{Brigham Young University, Department of Economics, 121B FOB, Provo, Utah 84602, \href{mailto:parker.rogers2@gmail.com}{parker.rogers2@gmail.com}.} \\[-2pt]}
+\date{March 2016 \\
+  \scriptsize{(version 16.03.a)}}
 \maketitle
 \vspace{-9mm}
 \begin{abstract}
-\footnotesize{We estimate a flexible joint distribution of bequest recipients in the United States by age and by lifetime income group. We use a multivariate kernel density estimator with a flexible bandwidth parameter. In addition we provide a method with accompanying code to produce the resulting discrete joint distribution over arbitrary age and lifetime income bins.
+\footnotesize{We provide an algorithm and code for estimating a flexible joint distribution of bequest recipients in the United States by age and by net worth. Estimating this joint distribution is important in macroeconomic models with population demographics in whichWe use a multivariate kernel density estimator with a flexible bandwidth parameter. In addition we provide a method with accompanying code to produce the resulting discrete joint distribution over arbitrary age and lifetime income bins.
 
 \vspace{3mm}
 
@@ -125,19 +123,19 @@
 The current conventional wisdom among Americans is that inheritances propagate wealth inequality in the United States \citet{Wolff:2015}. In order to accurately model and predict how inheritances affect wealth inequality, we must better understand which individuals are receiving these wealth transfers. Recent literature suggests that the relationship between age and inheritance reception rates is of the form of an inverted U-shape. More specifically, the rates of inheritance reception among age groups were, 16.2\% for the youngest age group, 26.9\% for ages 55-64, and 8.3\% for ages 75+. Moreover, there is strong positive correlation between income level, and the percentage of households receiving wealth transfers \citet{Wolff:2015}.
 
 Currently, many dynamic macroeconomic models incorporate how
-inheritances are distributed using two methods. Each method represents an extreme assumption 
+inheritances are distributed using two methods. Each method represents an extreme assumption
 that is almost assuredly not true.
 
-The first method of inheritance distribution gives all of the inheritances left from a dying 
-individual to individuals who are in their same income group. This method fails to model many 
-altruistic wealth transfers that occur in the economy as well as any distribution of that wealth to 
-other income groups. For example, it fails to simulate individuals who give an altruistic inheritance 
-to poorer family members who belong to a different income group. This hinders the accuracy of 
-the model in predicting the effect of inheritances on wealth inequality, and may lead to incorrect 
+The first method of inheritance distribution gives all of the inheritances left from a dying
+individual to individuals who are in their same income group. This method fails to model many
+altruistic wealth transfers that occur in the economy as well as any distribution of that wealth to
+other income groups. For example, it fails to simulate individuals who give an altruistic inheritance
+to poorer family members who belong to a different income group. This hinders the accuracy of
+the model in predicting the effect of inheritances on wealth inequality, and may lead to incorrect
 predictions of the effects of certain policy implementations.
 
-The second method of inheritance distribution splits the inheritances from all individuals 
-equally among all income groups. This method assumes that all income groups receive equal 
+The second method of inheritance distribution splits the inheritances from all individuals
+equally among all income groups. This method assumes that all income groups receive equal
 inheritances, which does not accurately portray inheritance behavior according to macroeconomic data.
 
   The purpose of this paper is to estimate a function that describes the proportions of inheritances received among different age and income groups. This function can later be incorporated into dynamic macroeconomic models to simulate the effects of inheritances on wealth inequality in the United States. We will use a Multivariate Kernel Density Estimator (MVKDE) to fit a function to our sample, and we will provide flexibility in our estimator by allowing a desired number of income and age groups. Our sample reflects the behavior of Americans by using data extracted from the Survey of Consumer Finances.
@@ -153,7 +151,7 @@ Another possible data source for our purpose is The Panel Survey of Income Dynam
 
 Here are the variables that we used from The Survey of Consumer Finances when determining our proportion matrix,
 
-X5804 - What the approximate value of the inheritances were at the time the respondent received them. 
+X5804 - What the approximate value of the inheritances were at the time the respondent received them.
 
 X5809 - The second reported value of inheritance reception.
 
@@ -169,10 +167,10 @@ X8022 - age of respondent.
 
 wgt - An SCF summary variable that contains the weights provided by the Federal Reserve to adjust for selection bias in the survey.
 
-networth - An SCF summary variable that contains the self-perceived net worth of the respondent at the time of the survey. 
+networth - An SCF summary variable that contains the self-perceived net worth of the respondent at the time of the survey.
 
 
-Since the SCF is a triennial survey, we wanted to prevent any overlap of bequest reception between survey years. In order to do this, we used the SCF variables \quotes{X5805}, \quotes{X5810}, \quotes{X5815} as described above. These variables give the time that each instance of bequest was received, and allow us to make sure that we include only the bequests received in the current, and previous two years of the survey year. For example, the \quotes{X5804} instance of bequests was received on the year \quotes{X5805} , and if 
+Since the SCF is a triennial survey, we wanted to prevent any overlap of bequest reception between survey years. In order to do this, we used the SCF variables \quotes{X5805}, \quotes{X5810}, \quotes{X5815} as described above. These variables give the time that each instance of bequest was received, and allow us to make sure that we include only the bequests received in the current, and previous two years of the survey year. For example, the \quotes{X5804} instance of bequests was received on the year \quotes{X5805} , and if
 \[\text{\quotes{X5805}} - \text{(current~survey~year)} <3\]
  then we would include that particular instance of bequests.
 
@@ -212,7 +210,7 @@ Lastly, we adjusted the nominal values for bequests to account for inflation bet
   1.076012397 & 1.078969961 & 1.063898833 & 1.034477726 & 1.014431538 & 1\\
 \hline
 
-\end{matrix}\] 
+\end{matrix}\]
 
 The final results showing the distribution of bequests received over the years 1998-2013, after applying our weights and inflation factors, are as follows,\\
 \begin{figure}[htbp]\centering \captionsetup{width=4.0in}
@@ -242,7 +240,7 @@ Notice the peak of inheritance reception at the age group 55-65 years and abilit
 
 \section{Estimated Joint Distribution of Bequests}\label{SecDist}
 
-  After gathering the data on the proportion of inheritances, we needed to fit a functional form to our data set in order to have a smooth representation of our sample and a robust way of altering both age groups and income groups according to different user inputs. For example, if the user wanted only four ability-type cohorts and twenty age cohorts, then we need a way to create new proportion bins according to these specified conditions. If we were to use only our sparse non-linear data set, it would be difficult to compose the desired proportions for each age-ability category. However, a functional form allows us to impose any conditions on the bequest distribution that the user desires. This is why we chose to fit a Multivariate Kernel Density Estimator to our data set. 
+  After gathering the data on the proportion of inheritances, we needed to fit a functional form to our data set in order to have a smooth representation of our sample and a robust way of altering both age groups and income groups according to different user inputs. For example, if the user wanted only four ability-type cohorts and twenty age cohorts, then we need a way to create new proportion bins according to these specified conditions. If we were to use only our sparse non-linear data set, it would be difficult to compose the desired proportions for each age-ability category. However, a functional form allows us to impose any conditions on the bequest distribution that the user desires. This is why we chose to fit a Multivariate Kernel Density Estimator to our data set.
 
 
 
@@ -287,61 +285,61 @@ def MVKDE(s, e, filename, plot = False):
 
       e             = scalar, the number of ability type groups in the model.
 
-      filename      = string, the file name of the .txt document that contains 
+      filename      = string, the file name of the .txt document that contains
                       the original proportion matrix created by SCFExtract.py.
 
       plot          = boolean, whether or not you want a plot of the probability
-                    distribution generated by your given age and ability type 
+                    distribution generated by your given age and ability type
                     groups.
-     
-  Functions called: 
-    kde.gaussian_kde      = scipy function that generates a Kernel 
+
+  Functions called:
+    kde.gaussian_kde      = scipy function that generates a Kernel
                             Density Estimator from given data
 
   Objects in function:
-      proportion_matrix     = [78, 7], array containing the proportion (0 < x < 1) of 
-                              the total bequests that each age-income category receives. 
+      proportion_matrix     = [78, 7], array containing the proportion (0 < x < 1) of
+                              the total bequests that each age-income category receives.
                               Derived in SCFExtract.py
 
-    age_probs             = [78,], array containing the frequency, or how many times, 
+    age_probs             = [78,], array containing the frequency, or how many times,
                               that random drawn numbers fell into the 78 different age bins
 
-    income_probs          = [7,], array containing the frequency, or how many times, 
-                              that random drawn numbers fell into the 7 different ability 
+    income_probs          = [7,], array containing the frequency, or how many times,
+                              that random drawn numbers fell into the 7 different ability
                               type bins
 
-    age_frequency         = [70000,], array containing repeated age values for each 
-                              age number at the frequency given by the age_probs vector 
+    age_frequency         = [70000,], array containing repeated age values for each
+                              age number at the frequency given by the age_probs vector
 
-    xmesh                 = complex number, the number of age values that will be 
+    xmesh                 = complex number, the number of age values that will be
                               evaluated in the Kernel Density Estimator.
 
-    freq_mat              = [70000, 2], array containing age_frequency and 
+    freq_mat              = [70000, 2], array containing age_frequency and
                               income_frequency stacked
 
-    density               = object, class given by scipy.stats.gaussian_kde. 
+    density               = object, class given by scipy.stats.gaussian_kde.
                               The Multivariate Kernel Density Estimator for the given data set.
 
-    age_min, age_max      = scalars, the minimum and maximum age values and minimum 
-      income_min, income_max  and maximum income values 
-    
+    age_min, age_max      = scalars, the minimum and maximum age values and minimum
+      income_min, income_max  and maximum income values
 
-    agei            = [s, e], array containing the age values to be evaluated in 
+
+    agei            = [s, e], array containing the age values to be evaluated in
                               the Kernel Estimator (ranging from 18-90)
 
-    incomei         = [s, e], array containing the income values to be evaluated 
+    incomei         = [s, e], array containing the income values to be evaluated
                               in the Kernel Estimator (ranging from 1-7)
 
-    coords                = [2, s*e], array containing the raveled values of agei 
+    coords                = [2, s*e], array containing the raveled values of agei
                               and incomei stacked
 
-    estimator             = [s, e], array containing the new proportion values for 
-                              s age groups and e ability type groups that are evaluated 
+    estimator             = [s, e], array containing the new proportion values for
+                              s age groups and e ability type groups that are evaluated
                               using the Multivariate Kernel Density Estimator
 
-    estimator_scaled       = [s, e], array containing the new proportion values for 
-                              s age groups and e ability type groups that are evaluated using 
-                              the Multivariate Kernel Density Estimator, but scaled so that 
+    estimator_scaled       = [s, e], array containing the new proportion values for
+                              s age groups and e ability type groups that are evaluated using
+                              the Multivariate Kernel Density Estimator, but scaled so that
                               the sum of the array is equal to one.
 
     Returns: estimator_scaled
@@ -380,7 +378,7 @@ def MVKDE(s, e, filename, plot = False):
   agei, incomei = np.mgrid[age_min:age_max:age_mesh, income_min:income_max:income_mesh]
   coords = np.vstack([item.ravel() for item in [agei, incomei]])
   estimator = density(coords).reshape(agei.shape)
-  estimator_scaled = estimator/float(np.sum(estimator)) 
+  estimator_scaled = estimator/float(np.sum(estimator))
   if plot == True:
     fig = plt.figure()
     ax = fig.gca(projection='3d')
@@ -395,7 +393,7 @@ newproportion =  MVKDE(80,7,'fileout.txt', True)
     \end{lstlisting}
 
 
-We used the kernel function from the imported scipy module for our estimation. This kernel function works much like a histogram, therefore we changed the nature of our data from a matrix of proportions to vectors filled with the frequencies that different age and ability type groups occurred. This transformation occurs on lines 80-103. 
+We used the kernel function from the imported scipy module for our estimation. This kernel function works much like a histogram, therefore we changed the nature of our data from a matrix of proportions to vectors filled with the frequencies that different age and ability type groups occurred. This transformation occurs on lines 80-103.
 
 Using the multinomial function from numpy, we loaded the function with our proportion vectors for age and ability type. We obtained these vectors by summing up our proportion matrix over both the age and then the ability type axes. This resulted in two vectors that summed to one, which provide the proportions that each age group and ability type group received. The multinomial function then uses those proportions as probabilities and takes random draws according to those given proportions. We specified the function to take 70,000 random draws with the given probabilities that correspond to the age and ability proportions. For our age probability vector, this creates a new vector where each index corresponds to an age group in ascending order (18-95), where each index contains the number of times that a random draw resulted in that particular age. For our ability probability vector, multinomial creates a similar vector in ascending order (1-7), with the number of draws that fell into into each ability type group/index.
 
@@ -415,7 +413,7 @@ These new vectors now correspond to the required data format for scipy's kernel 
 \newpage
  Note that the peak of bequest reception still lies in the age group 55-65 years and ability type 7 like Figure \ref{proportions}. Our estimated distribution is ultimately defined by a matrix of proportions whose dimensions are determined by the user. In this particular case, we specified 78 age groups (ages 18-95) and 7 ability type groups. Any desired amount of age groups and ability type groups can be given, and the resulting matrix will match these amounts. This flexibility allows our distribution to change and alter according to the different specifications in macroeconomic models.
 
- Also, a noteworthy characteristic of the MVKDE is the use of a bandwidth parameter. This parameter allows for the graph to be more or less smooth. Smoothness corresponds to higher values of the \quotes{bw\_method} in the \quotes{kde.gaussian\_kde} function, and represents a distribution that is less determined by the data. The lower the bandwidth selection, the rougher the graph is and the more jagged the distribution; however, the lower bandwidths more accurately portray the behavior of the sample set. 
+ Also, a noteworthy characteristic of the MVKDE is the use of a bandwidth parameter. This parameter allows for the graph to be more or less smooth. Smoothness corresponds to higher values of the \quotes{bw\_method} in the \quotes{kde.gaussian\_kde} function, and represents a distribution that is less determined by the data. The lower the bandwidth selection, the rougher the graph is and the more jagged the distribution; however, the lower bandwidths more accurately portray the behavior of the sample set.
 
 
 
