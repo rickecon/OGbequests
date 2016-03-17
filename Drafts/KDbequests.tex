@@ -149,7 +149,7 @@ inheritances, which does not accurately portray inheritance behavior according t
 
 The data we used was pulled from the Survey of Consumer Finances located on The Federal Reserve website. The Survey of Consumer Finances is a triennial survey conducted by The Federal Reserve that began in 1983. Each survey data set contains around 5,400 variables with over 30,000 respondents. Summary variables are included that are adjusted for inflation.\citet{FED}.
 
-Another possible data source for our purpose is The Panel Survey of Income Dynamics (PSID). The PSID is a cross-sectional survey conducted by The University of Michigan that began in 1968 and follows 18,000 individuals. You can find data on employment, income, wealth, expenditures, health, marriage, childbearing, child development, philanthropy, education, and numerous other topics. \citet{UMich}
+Another possible data source for our purpose is The Panel Survey of Income Dynamics (PSID). The PSID is a cross-sectional survey conducted by The University of Michigan that began in 1968 and follows 18,000 individuals. Data can be found on employment, income, wealth, expenditures, health, marriage, childbearing, child development, philanthropy, education, and numerous other topics. \citet{UMich}
 
 Here are the variables that we used from The Survey of Consumer Finances when determining our proportion matrix,
 
@@ -176,7 +176,7 @@ Since the SCF is a triennial survey, we wanted to prevent any overlap of bequest
 \[\text{\quotes{X5805}} - \text{(current~survey~year)} <3\]
  then we would include that particular instance of bequests.
 
- To gather the amount of bequests received, conditional upon both age and ability types (networth), we separated the bequests reported by respondents within three years of the survey, by separating the bequests received by certain age and ability types into separate bins. After, we divided the amount in each age-income bin by the total amount of bequests reported within the three year interval of the survey for all respondents. This resulted in a proportion matrix, which tells us what proportion of bequests each age-income category received. Upon examining the following resulting graph of proportions over the years 2001-2013, we proceeded to apply a different variable provided by the SCF called \quotes{weights}.
+ To gather the amount of bequests received, conditional upon both age and ability types (networth), we separated the bequests reported by respondents within three years of the survey by separating the bequests received by certain age and ability types into separate bins. After, we divided the amount in each age-income bin by the total amount of bequests reported within the three year interval of the survey for all respondents. This resulted in a proportion matrix, which tells us what proportion of bequests each age-income category received. Upon examining the following resulting graph of proportions over the years 2001-2013, we proceeded to apply a different variable provided by the SCF called \quotes{weights}.
 
 \begin{figure}[htbp]\centering \captionsetup{width=5.5in}
     \caption{\label{Weightfig}\textbf{Distribution of Inheritances Before Weights Applied}}
@@ -184,7 +184,8 @@ Since the SCF is a triennial survey, we wanted to prevent any overlap of bequest
   \end{figure}
 \newpage
 
- In order to reduce selection bias, the SCF provides a Summary Variable called \quotes{weights}. The weights provided are meant to \quotes{compensate for unequal probabilities of selection in the original design and for unit nonresponse (failure to obtain an interview)} \citet{FEDweight}. The distribution before these weights were applied is seen in Figure \ref{Weightfig}. We applied these weights to all our variables by multiplying the weights by each bequest value.
+ In order to reduce selection bias, the SCF provides a Summary Variable called \quotes{weights}. The weights provided are meant to \quotes{compensate for unequal probabilities of selection in the original design and for unit nonresponse (failure to obtain an interview)} \citet{FEDweight}. The distribution before these weights were applied is seen in Figure \ref{Weightfig}. Notice the unnatural spike in bequest reception for individuals of age 73. We applied these weights to all our variables by multiplying the weights by each bequest value.
+ 
 
 
 Lastly, we adjusted the nominal values for bequests to account for inflation between the used survey years of 1998-2013. We used the St. Louis Federal Reserve's CPI for all urban consumers: all items \citet{StFed} . We then set 2013 as the base year and calculated the percentage inflation factors for all the years down to 1988. The inflation factors, which will be multiplied by the bequest amounts that correspond to each year, are given as follows,
