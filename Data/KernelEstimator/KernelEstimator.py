@@ -84,6 +84,7 @@ def MVKDE(S, J ,proportion_matrix = None, filename = None, plot = False,  bandwi
 
     Returns: estimator_scaled
     '''
+    print plot
     if proportion_matrix is None:
         proportion_matrix = np.loadtxt(filename, delimiter = ',')
     proportion_matrix_income = np.sum(proportion_matrix, axis = 0)
@@ -128,3 +129,4 @@ def MVKDE(S, J ,proportion_matrix = None, filename = None, plot = False,  bandwi
         ax.set_zlabel("Received proportion of total bequests")
         plt.show()
     return estimator_scaled
+MVKDE(80,7,None, "fileout.txt", True)
