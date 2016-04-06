@@ -4,6 +4,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from scipy import stats
 from scipy.stats import norm
 from scipy.stats import kde
+import seaborn
 
 def MVKDE(S, J ,proportion_matrix = None, filename = None, plot = False,  bandwidth = .25):
     '''
@@ -128,3 +129,4 @@ def MVKDE(S, J ,proportion_matrix = None, filename = None, plot = False,  bandwi
         ax.set_zlabel("Received proportion of total bequests")
         plt.show()
     return estimator_scaled
+
