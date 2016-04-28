@@ -215,7 +215,6 @@ def initSCFvars(scf, scfSummary, year, year_range, inflation_levels):
         age = scf['X8022'][indeces]
         weights = scfSummary['wgt'][indeces]
         income = scfSummary['networth'][indeces]
-        print income.min()
         three_years_received_combined_summed = three_years_received_combined_summed * (weights/5.)
         age_income = pd.concat([three_years_received_combined_summed, age, income], axis =1)
         age_income.columns = ['X5804' , 'X8022' , 'X5729']
