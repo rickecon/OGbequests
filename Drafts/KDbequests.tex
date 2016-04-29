@@ -135,13 +135,13 @@
 
 The data we used to create our joint distribution was pulled from the Survey of Consumer Finances. The Survey of Consumer Finances (SCF) is a triennial survey conducted by The Federal Reserve that began in 1983. Each data set contains around 5,400 variables with over 30,000 observations. Respondents range from age 18 to age 96. 
 
-Another possible data source that is rich in financial information is The Panel Survey of Income Dynamics (PSID). The PSID is a cross-sectional survey conducted by The University of Michigan that began in 1968 and follows 18,000 individuals. Data can be found on employment, income, wealth, expenditures, health, marriage, childbearing, child development, philanthropy, education, and numerous other topics. \citet{UMich}
+Another possible data source that is rich in financial information is The Panel Survey of Income Dynamics (PSID). The PSID is a longitudinal panel survey conducted by The University of Michigan that began in 1968 and follows 18,000 individuals. Data can be found on employment, income, wealth, expenditures, health, marriage, childbearing, child development, philanthropy, education, and numerous other topics. \citet{UMich}
 
-The SCF provides a comprehensive list of all variables included in the data set, called the codebook, where we found all of the useful variables for our distribution. The following is a list of codebook variables and an identifying symbol for theoretical purposes:
+The SCF provides a Full Public Data Set and a Summary Extract Public Data Set. The Summary Data contains variables that were used in the Federal Reserve Bulletin Article, and are already adjusted for inflation. The SCF codebook is a comprehensive list of all variables/questions included in the Full Public Data Set.   The following is a list of codebook and Summary Variables, an identifying symbol for theoretical purposes, and the description of that variable:
 
   X8022 - ($s \in \{18,....,96\}$), age of respondent.
 
-  net worth - ($j\in (-139,000~,~890,000,000)$), an SCF summary variable that contains the self-perceived net worth of the respondent at the time of the survey.
+  net worth - ($j\in (-139,000~,~890,000,000)$), an SCF Summary Variable that contains the self-perceived net worth of the respondent at the time of the survey.
 
   X5805 - ($t_1$), the year that they received the first instance of inheritances (corresponding to X5804).
 
@@ -149,17 +149,17 @@ The SCF provides a comprehensive list of all variables included in the data set,
 
   X5815 - ($t_3$), the year that they received the third instance of inheritances (corresponding to X5814)
 
-  X5804 - ($b_{1}$), the approximate value of the first instance of inheritance when the respondent received them. We consider the indeces $i,~s,~j$ to denote the individual, their age, and their net worth respectively.
+  X5804 - ($b_{1}$), the approximate value of the first instance of inheritance when the respondent received them.
 
   X5809 - ($b_{2}$) the second reported value of inheritance reception.
 
   X5814 - ($b_{3}$) the third reported value of inheritance reception.
   
-  wgt - ($\omega_i$), an SCF summary variable that contains the weights provided by the Federal Reserve to adjust for selection bias in the survey. Each weight corresponds to individual $i$
+  wgt - ($\omega_i$), an SCF Summary Variable that contains the weights provided by the Federal Reserve to adjust for selection bias in the survey. Each weight corresponds to individual $i$
 
-  We define $t_0$ as the year that the survey being used was conducted.
+  We define $t_0$ as the year that the survey being considered was conducted.
 
-  In our particular distribution we assign our variable net worth the following values (this can be done according to different income percentiles),
+  In our particular distribution we assign our variable net worth the following values (this can be done according to desired net worth percentiles),
 
 
   \[ j = \left\{
@@ -175,8 +175,7 @@ The SCF provides a comprehensive list of all variables included in the data set,
     \right. \]
 
 
-
-  In order to increase our sample size, we considered data from SCF survey years 1989-2013. Since the SCF is a triennial survey, we first wanted to prevent any overlap of bequest reception between survey years. In order to do this, we used the variables $t_1$, $t_2$, and $t_3$  as described above. These variables give the time that each instance of bequest was received, and allow us control for the bequests received outside of the current, and previous two years of the survey year. Formally, we include the instances of bequests ($b_1, ~ b_2,~b_3$) in our distribution if their corresponding ($t_1,~ t_2,~t_3$) satisfy the following condition,
+  To increase our sample size, we considered data from SCF years 1998-2013. Since the SCF is a triennial survey, we first wanted to prevent any overlap of bequest reception between survey years. In order to do this, we used the variables $t_1$, $t_2$, and $t_3$  as described above. These variables give the time that each instance of bequest was received, and allow us control for the bequests received outside of the current ($t_0$), and previous two years of the survey year ($t_0 -1,~t_0 - 2)$. Formally, we include the instances of bequests ($b_1, ~ b_2,~b_3$) in our distribution if their corresponding ($t_1,~ t_2,~t_3$) satisfy the following condition,
   \[(t_0,t_0,t_0) - (t_1, t_2,t_3)<3\]
   where $t_0$ is the year of the survey being used.
 
@@ -184,7 +183,7 @@ The SCF provides a comprehensive list of all variables included in the data set,
 
   After each instance of reported bequests satisfies the condition,
   \[(t_0,t_0,t_0) - (t_1, t_2,t_3)<3\]
-  we define new bequest variables, using variables $s$ and $j$, that are conditional upon the individual, their age, and net worth. We define them as follows,
+  we define new bequest variables that are conditional upon the variables $i$, $s$ and $j$, which represent the individual, their age, and net worth respectively. We define them as follows,
   
   $b_{1,i,s,j,}$, the first reported bequest reception ($b_1$) for individual $i$, with age $s$, and with net worth $j$.
   
@@ -192,12 +191,12 @@ The SCF provides a comprehensive list of all variables included in the data set,
   
   $b_{3,i,s,j,}$, the third instance of bequests ($b_3$) for that same individual.
   
-   we place these bequests into a matrix, representing our joint distribution, conditional on different age and net worth categories . Let $S, ~J$, be the total number of age groups and net worth groups respectively and let $B$ be an $S \times J$, matrix representing our joint distribution of bequests conditional upon age, $s$, and net-worth category, $j$. Any arbitrary $b_{s,j}$ entry of $B$ is defined by the following condition,
+   We place these bequests into a matrix representing our joint distribution, conditional upon different age and net worth categories . Let $S, ~J$, be the total number of age groups and net worth groups respectively and let $B$ be an $S \times J$, matrix representing our joint distribution of bequests conditional upon age ($s$) and net-worth category ($j$). Any arbitrary $b_{s,j}$ entry of $B$ is defined by the following condition,
 
 \[ b_{s-18,j} = \int_i b_{1,i,s,j} + b_{2,i,s,j} +b_{3,i,s,j}\]
            
 
-   We then create a matrix of proportions that describes the portion of total bequests that each age-income group receive by doing the following,
+   We then create a matrix of proportions that describes the portion of total bequests that each age-net-worth group receive doing the following,
    \[b_{s-18,j} = \frac{\int_i b_{1,i,s,j} + b_{2,i,s,j} +b_{3,i,s,j}}{\int_i \int_s \int_j b_{1,i,s,j} + b_{2,i,s,j} +b_{3,i,s,j}}\]
   Note that $\int_s \int_j b_{s-18,j} = 1$. The following graph is the result of this matrix of proportions, 
 
@@ -207,14 +206,14 @@ The SCF provides a comprehensive list of all variables included in the data set,
     \end{figure}
   \newpage
 
-  Notice the spike in bequest reception at age 73 and net worth group 0. This is due to the selection bias in the survey. In order to reduce this effect, the SCF provides a Summary Variable called \quotes{wgt} ($\omega_i$). This variable is a vector of weights corresponding to each individual provided to \quotes{compensate for unequal probabilities of selection in the original design and for unit nonresponse (failure to obtain an interview)} \citet{FEDweight}. We applied these weights to our inheritances variables by multiplying the following,
+  Notice the spike in bequest reception at age 73 and net worth group 0. This is due to the selection bias in the survey. In order to reduce this effect, the SCF provides a Summary Variable called \quotes{wgt} ($\omega_i$). This variable is a vector of weights corresponding to each individual that is provided to \quotes{compensate for unequal probabilities of selection in the original design and for unit nonresponse (failure to obtain an interview)} \citet{FEDweight}. We applied these weights to our inheritances variables as follows,
 
   \[b_{s-18,j} = \frac{\int_i \omega_i *(b_{1,i,s,j} + b_{2,i,s,j} +b_{3,i,s,j})}{\int_i \int_s \int_j \omega_i *(b_{1,i,s,j} + b_{2,i,s,j} +b_{3,i,s,j})}\]
 
 
 
 
-  Lastly, we adjusted the nominal values of ($b_1, ~ b_2,~b_3$) to account for inflation between the used survey years of 1998-2013. We used the St. Louis Federal Reserve's CPI for all urban consumers: all items \citet{StFed} . We then set 2013 as the base year and calculated the percentage inflation factors for all the years down to 1998. The inflation factors, which are be multiplied by the bequest amounts that correspond to each year, are given as follows,
+  Lastly, we adjusted the nominal values of ($b_1, ~ b_2,~b_3$) to account for inflation between the used survey years of 1998-2013. We used the St. Louis Federal Reserve's CPI for all urban consumers: all items \citet{StFed} . We set 2013 as the base year and calculated the inflation factors for all the years down to 1998. The inflation factors, which are be multiplied by the bequest amounts that correspond to each year, are given as follows,
 
   \[
   \begin{matrix}
@@ -237,9 +236,9 @@ The SCF provides a comprehensive list of all variables included in the data set,
 
   \end{matrix}\]
 
-  The graph of the resulting matrix after applying weights and inflation factors, which shows the joint distribution of bequests received over the years 1998-2013, is as follows,\\
-  \begin{figure}[htbp]\centering \captionsetup{width=4.0in}
-    \caption{\label{proportions}\textbf{Distribution of Inheritances 1998-2013}}
+  The graph of the resulting matrix after applying weights and inflation factors, which shows the joint distribution of bequests received over the years 1998-2013,\\
+  \begin{figure}[htbp]\centering \captionsetup{width=5.0in}
+    \caption{\label{proportions}\textbf{Joint Distribution of Inheritances 1998-2013}}
     \fbox{\resizebox{4.0in}{3.0in}{\includegraphics{result1}}}
   \end{figure}
 
@@ -252,10 +251,10 @@ The SCF provides a comprehensive list of all variables included in the data set,
   \subsection{Multivariate Kernel Density Estimator (MVKDE)}\label{SecDistMVKDE}
 
 
-    After creating a matrix that describes the joint distribution of inheritances over age and net worth categories, we fit a functional form to this matrix in order to facilitate flexiblility among these categories. This functional form is useful because it would allow our joint distribution to accomodate different model inputs. Now, a model that is characterized by any number of heterogenous net worth and age cohorts can use our distribution simply by defining the desired amount of age and net worth groups. Since our matrix of proportions sums to one, we use a Multivariate Kernel Density Estimator to fit a probablity distribution function to our data in Figure \ref{proportions}.
+    After creating a matrix that describes the joint distribution of inheritances over age and net worth categories, we fit a functional form to this matrix in order to facilitate flexiblility among these categories. A functional form is useful because it allows our joint distribution to accomodate different model inputs. Now, a model that is characterized by any number of heterogenous net worth and age cohorts can use our distribution simply by providing these numbers. Since our matrix of proportions sums to one, we use a Multivariate Kernel Density Estimator to fit a probablity distribution function to our data in Figure \ref{proportions}.
 
 
-    Kernel Density Estimation is a nonparametric way to approximate a density function when the parametric form of the sampling density is unknown. We used a Multivariate Kernel Density Estimator to estimate the sample density as there were no clear parametric density forms that matched our data set. We treat both the univariate and the multivariate Kernel Density Estimators.
+    Kernel Density Estimation is a nonparametric way to approximate a density function when the parametric form of the sampling density is unknown. We used a Multivariate Kernel Density Estimator to estimate the sample density as there were no clear parametric density forms that matched our distribution. We provide a small treatment of both the Univariate and Multivariate Kernel Density Estimators.
     
     The Univariate Kernel Density Estimator is defined as follows:
 
@@ -263,7 +262,7 @@ The SCF provides a comprehensive list of all variables included in the data set,
 
     where $K_h(x) =  K(x/h)/x$ is the kernel function of choice, $h$ is the bandwidth, and $n$ is the number of sample points \citet{Scott:2015}. 
 
-    Much like the histogram, a Kernel Density Estimator, creates functional values that correspond to a chosen kernel function at each sample point. Moreover, upon summing up each kernel function corresponding to its respective sample point, this sum of kernels is evenly scaled by dividing the functional values by the total number of sample points and the bandwidth selection.
+    Much like the histogram, a Kernel Density Estimator, creates functional values that correspond to a chosen kernel function at each sample point. Upon summing up each kernel function corresponding to its respective sample point, this sum of kernels is evenly scaled by dividing the functional values by the total number of sample points and the bandwidth selection.
 
     In our case we use a joint distribution, with variables $s$, $j$. Thus, we use the multivariate case of kernel estimation, which is given by the following,
     \[\hat{f}_\mathbf{H}(\mathbf{x})= \frac1n \sum_{i=1}^n K_\mathbf{H} (\mathbf{x} - \mathbf{x}_i)\]
@@ -403,7 +402,7 @@ The SCF provides a comprehensive list of all variables included in the data set,
     %   newproportion =  MVKDE(80,7,'fileout.txt', True)
     % \end{lstlisting}
 
-    In order to implement this kernel, we used a kernel function from an imported scipy module. Since kernel estimators work much like a histogram, we changed the nature of our data by converting the matrix of proportions into two individual vectors filled with frequencies that represent the number of times that different age and net worth groups occurred. To do this, we first sum our matrix of proportions over our age axis, for our length $J$ net worth proportion vector ($n_j$), and then over our net worth axis for our length $S-18$ age proportion vector ($a_s$), which is given by the following,
+    In order to implement this kernel, we used a kernel function from an imported scipy module. Since kernel estimators work much like a histogram, we changed the nature of our data by converting the matrix of proportions into two individual vectors filled with frequencies that represent the number of times that different age and net worth groups occur. To do this, we first sum our matrix of proportions over our age axis, for our length $J$ net worth proportion vector ($n_j$), and then over our net worth axis for our length $S$ age proportion vector ($a_s$), which is given by the following,
 
     \[n_j = \int_s b_{s,j}~~~\text{and}~~~a_s = \int_j b_{s,j}\]
 
@@ -425,7 +424,7 @@ The SCF provides a comprehensive list of all variables included in the data set,
       \fbox{\resizebox{4.0in}{3.0in}{\includegraphics{KernelEstimator}}}
     \end{figure}
 
-    \newpage Note that the peak of bequest reception still lies in the age group 55-65 years and net worth group 7 as in Figure \ref{proportions}. Our estimated distribution is ultimately defined by a matrix of proportions whose dimensions are determined by the user. In this particular case, we specified 78 age groups (ages 18-95) and 7 net worth type groups. Any desired amount of age groups and net worth groups can be given, and the resulting matrix will match these amounts. This flexibility allows our distribution to accomodate different specifications in macroeconomic models.
+    \newpage Note that the peak of bequest reception still lies in the age group 55-65 years and net worth group 7 as in Figure \ref{proportions}. The estimated distribution is ultimately defined by a matrix of proportions whose dimensions are determined by the user. In this particular case, we specified 78 age groups (ages 18-95) and 7 net worth type groups. Importantly, the MVKDE function that estimates the distribution can take any desired amount of age groups and net worth groups, and create a joint distribution from the data that matches these amounts. This flexibility allows our distribution to accomodate different specifications in macroeconomic models.
 
     
 
